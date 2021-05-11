@@ -4,4 +4,4 @@
 aws configure
 
 # Create the CloudFormation stack for the basic VPC
-aws cloudformation create-stack --stack-name Globomantics --template-body file://basic-network.template
+aws cloudformation create-stack --stack-name Globomantics --template-body file://basic-network.json

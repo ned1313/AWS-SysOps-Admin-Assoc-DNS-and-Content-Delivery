@@ -50,7 +50,7 @@ aws route53resolver create-resolver-endpoint --name "outbound-globo" \
 # Check on resolver creation
 aws route53resolver list-resolver-endpoints --filter Name="Name",Values="outbound-globo"
 
-# Get inbound resolver ID
+# Get outbound resolver ID
 outbound_resolver_id=$(aws route53resolver list-resolver-endpoints \
   --filter Name="Name",Values="outbound-globo" \
   --query 'ResolverEndpoints[0].Id' --output text)
