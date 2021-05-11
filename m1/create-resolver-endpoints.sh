@@ -55,7 +55,7 @@ outbound_resolver_id=$(aws route53resolver list-resolver-endpoints \
   --filter Name="Name",Values="outbound-globo" \
   --query 'ResolverEndpoints[0].Id' --output text)
 
-# And a custom rules for inbound
+# And a custom rule for outbound
 
 aws route53resolver create-resolver-rule --name "globo-local" \
   --creator-request-id "local${RANDOM}" \
@@ -63,3 +63,16 @@ aws route53resolver create-resolver-rule --name "globo-local" \
   --domain-name "globomantics.local" \
   --target-ips="Ip=192.168.0.20" \
   --resolver-endpoint-id $outbound_resolver_id
+
+# Check on rule creation for COMPLETE
+
+aws route53resolver list-resolver-rules --filter Name="Name",Values="globo-local"
+
+outbound_rule_id=$(aws route53resolver list-resolver-rules \
+  --filter Name="Name",Values="globo-local" \
+  --query 'ResolverRules[0].Id' --output text)
+
+# Associate rule with VPC
+aws route53resolver associate-resolver-rule \
+  --resolver-rule-id $outbound_rule_id \
+  --vpc-id $vpc_id
