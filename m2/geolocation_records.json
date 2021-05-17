@@ -1,0 +1,59 @@
+{
+    "Comment": "Add geolocation records for web server",
+    "Changes": [
+      {
+        "Action": "CREATE",
+        "ResourceRecordSet": {
+          "Name": "web-geo.globomanticslabs.com",
+          "Type": "A",
+          "SetIdentifier": "default",
+          "GeoLocation": {
+              "CountryCode": "*"
+          },
+          "TTL": 3600,
+          "ResourceRecords": [
+            {
+              "Value": "8.8.8.8"
+            }
+          ],
+          "HealthCheckId": "US_EAST_CHECK"
+        }
+      },
+      {
+        "Action": "CREATE",
+        "ResourceRecordSet": {
+          "Name": "web-geo.globomanticslabs.com",
+          "Type": "A",
+          "SetIdentifier": "us-east-1",
+          "GeoLocation": {
+              "ContinentCode": "NA"
+          },
+          "TTL": 3600,
+          "ResourceRecords": [
+            {
+              "Value": "8.8.8.8"
+            }
+          ],
+          "HealthCheckId": "US_EAST_CHECK"
+        }
+      },
+      {
+        "Action": "CREATE",
+        "ResourceRecordSet": {
+          "Name": "web-geo.globomanticslabs.com",
+          "Type": "A",
+          "SetIdentifier": "eu-west-1",
+          "GeoLocation": {
+              "ContinentCode": "EU"
+          },
+          "TTL": 3600,
+          "ResourceRecords": [
+            {
+              "Value": "8.8.4.4"
+            }
+          ],
+          "HealthCheckId": "EU_WEST_CHECK"
+        }
+      }
+    ]
+  }

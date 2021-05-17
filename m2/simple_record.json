@@ -1,0 +1,18 @@
+{
+    "Comment": "Add record for web server",
+    "Changes": [
+      {
+        "Action": "CREATE",
+        "ResourceRecordSet": {
+          "Name": "web-simple.globomanticslabs.com",
+          "Type": "A",
+          "TTL": 3600,
+          "ResourceRecords": [
+            {
+              "Value": "8.8.8.8"
+            }
+          ]
+        }
+      }
+    ]
+  }
