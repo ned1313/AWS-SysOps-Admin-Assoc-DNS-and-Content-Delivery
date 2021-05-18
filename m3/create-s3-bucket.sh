@@ -16,10 +16,26 @@ aws s3 cp error.html s3://$bucketname
 aws s3api put-bucket-website --bucket $bucketname --website-configuration file://website.json
 
 # Then we need to enable public access
-cp public_read.json public_read_updated.json
-sed -i "s/BUCKET_NAME/$bucketname/" public_read_updated.json
+cat << EOF > public_read.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::$bucketname/*"
+            ]
+        }
+    ]
+}
+EOF
 
-aws s3api put-bucket-policy --bucket $bucketname --policy file://public_read_updated.json
+aws s3api put-bucket-policy --bucket $bucketname --policy file://public_read.json
 
 # Here's the website's address
 echo "$bucketname.s3-website.$region.amazonaws.com"
